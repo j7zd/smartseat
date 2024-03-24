@@ -5,8 +5,8 @@ import socket
 
 relay = Pin(2, Pin.OUT)
 
-ssid = ""
-password = ""
+ssid = "Bicagis' hotspot"
+password = "nabicagisanepipai"
 
 def connect():
     wlan = network.WLAN(network.STA_IF)
