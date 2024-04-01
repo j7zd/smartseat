@@ -32,21 +32,22 @@ if __name__ == '__main__':
     from time import sleep
     s180 = Servo180(1, 180)
     s360 = Servo360(0)
-    
-    for i in range(76, 166, 1):
-        s180.value(i)
-        sleep(0.02)
-    
-    sleep(0.4)
-    s360.value(-500000)
-    sleep(8)
+
+    for _ in range(1):
+        for i in range(76, 166, 1):
+            s180.value(i)
+            sleep(0.02)
         
-    for i in range(166, 76, -1):
-        s180.value(i)
-        sleep(0.02)
+        sleep(0.4)
+        s360.value(-500000)
+        sleep(10)
+            
+        for i in range(166, 76, -1):
+            s180.value(i)
+            sleep(0.01)
     
-    
-    s360.value(0)
+        s360.value(0)
+        sleep(1)
     
     s180.deinit()
     s360.deinit()
