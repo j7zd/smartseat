@@ -73,9 +73,10 @@ def serve(connection):
         client.send(html)
         client.close()
 
-try:
-    ip = connect()
-    connection = open_socket(ip)
-    serve(connection)
-except KeyboardInterrupt:
-    machine.reset()
+def run_web():
+    try:
+        ip = connect()
+        connection = open_socket(ip)
+        serve(connection)
+    except KeyboardInterrupt:
+        machine.reset()

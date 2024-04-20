@@ -14,6 +14,7 @@ class Servo360:
     def deinit(self):
         self.pwm.deinit()
         
+
 class Servo180:
     def __init__(self, pin, initial=0):
         self.pwm = PWM(Pin(pin), freq=50)
@@ -25,23 +26,42 @@ class Servo180:
         
         self.pwm.duty_u16(1000 + v * 8000 // 180)
         
-    def deinit():
+    def deinit(self):
         self.pwm.deinit()
-        
-if __name__ == '__main__':
+
+class Relay:
+    def __init__(self, pin):
+        self.pin_num = pin
+        self.pin = Pin(pin, Pin.OUT)
+        self.pin.value(0)    
+    
+    def on(self):
+        self.pin.value(0)
+    
+    def off(self):
+        self.pin.value(1)
+    
+
+def run_toilet():
     from time import sleep
+    buttons = Buttoner(69,69) # change
     s180 = Servo180(1, 180)
     s360 = Servo360(0)
-
-    for _ in range(1):
+    relay = Relay(2)
+    relay.off()
+    for _ in range(2):
+        #lower head
         for i in range(76, 166, 1):
             s180.value(i)
             sleep(0.02)
+        relay.on()
         
         sleep(0.4)
         s360.value(-500000)
-        sleep(10)
-            
+        sleep(8)
+        relay.off()
+        sleep(2)
+        
         for i in range(166, 76, -1):
             s180.value(i)
             sleep(0.01)
@@ -51,3 +71,4 @@ if __name__ == '__main__':
     
     s180.deinit()
     s360.deinit()
+    relay.off()
